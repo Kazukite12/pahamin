@@ -11,6 +11,25 @@ exports.get_sub_course_by_course_id = async(course_id) => {
     return rows;
 }
 
+exports.get_practices_data = async(sub_course_id)=> {
+  const [rows] = await db.execute(`SELECT 
+  p.id AS practice_id,
+  p.sub_course_id AS sub_course_id,
+  p.title AS practice_title,
+  COUNT(q.id) AS total_questions
+FROM 
+  practices p
+LEFT JOIN 
+  questions q ON p.id = q.practice_id
+WHERE 
+  p.sub_course_id = ?
+GROUP BY 
+  p.id, p.title
+ORDER BY 
+  p.id;`,[sub_course_id])
+  return rows
+}
+
 exports.get_practices_by_sub_course_id = async(sub_course_id) => {
     const [rows] = await db.execute('SELECT * FROM practices WHERE sub_course_id = ?',[sub_course_id])
     return rows;

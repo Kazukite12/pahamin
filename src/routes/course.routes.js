@@ -11,8 +11,11 @@ router.get('/courses', courseController.getAllCourses);
 // GET sub-courses by course_id
 router.get('/sub-courses/:course_id', courseController.getSubCourses);
 
+// GET all Practices
+router.get('/practices/:sub_course_id', courseController.getAllPractices)
+
 // GET practices by sub_course_id
-router.get('/practices/:sub_course_id', courseController.getPractices);
+// router.get('/practices/:sub_course_id', courseController.getPractices);
 
 // GET questions with options by practice_id + pagination
 router.get('/questions/:practice_id', courseController.getQuestionsWithOptions);

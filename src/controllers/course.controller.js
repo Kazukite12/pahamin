@@ -21,6 +21,17 @@ exports.getSubCourses = async (req, res) => {
   }
 };
 
+exports.getAllPractices = async(req, res) => {
+  try {
+     const { sub_course_id } = req.params;
+    const practices = await courseModel.get_practices_data(sub_course_id );
+
+    res.json(practices)
+  }catch(error) {
+          res.status(500).json({ error: err.message });
+  }
+}
+
 exports.getPractices = async (req, res) => {
   try {
     const { sub_course_id } = req.params;
